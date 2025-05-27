@@ -2,11 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prashant's Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Check Back Soon</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #333;
+    }
+
+    .gear {
+      width: 50px;
+      height: 50px;
+      margin: 10px;
+      border-radius: 50%;
+      border: 6px solid #555;
+      border-top: 6px solid transparent;
+      animation: spin 1s linear infinite;
+    }
+
+    .gear:nth-child(2) {
+      animation-duration: 1.5s;
+    }
+
+    @keyframes spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #555;
+      width: 0;
+      animation: typing 3s steps(25, end) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to   { width: 320px }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+  </style>
 </head>
 <body>
-  <h1>Work in Progress...</h1>
+  <div style="display: flex;">
+    <div class="gear"></div>
+    <div class="gear"></div>
+  </div>
+  <div class="message">Building Website... Please check back soon!</div>
 </body>
 </html>
