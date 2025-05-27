@@ -1,22 +1,36 @@
 body {
-  background: #f4f4f4;
-  font-family: sans-serif;
+  background: #f0f0f0;
+  font-family: 'Segoe UI', sans-serif;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  background: #222;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 500;
 }
 
 .gear-container {
   display: flex;
   gap: 20px;
-  align-items: center;
+  margin-top: 100px;
 }
 
 .gear {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   animation: spin 2s linear infinite;
 }
 
@@ -25,14 +39,14 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
+  0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
 .message {
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   border-right: 2px solid #555;
@@ -42,9 +56,19 @@ body {
 
 @keyframes typing {
   from { width: 0 }
-  to   { width: 320px }
+  to   { width: 300px }
 }
 
 @keyframes blink {
   50% { border-color: transparent }
+}
+
+main {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+main h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
