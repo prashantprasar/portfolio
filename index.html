@@ -1,15 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Work in Progress</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Under Construction</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #64748b;
+            --accent: #2563eb;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            background: radial-gradient(circle at top right, #e2e8f0, var(--bg));
+            color: var(--primary);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            padding: 2rem;
+            max-width: 600px;
+        }
+
+        .badge {
+            background: #dbeafe;
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 1.5rem 0 1rem 0;
+            letter-spacing: -1px;
+        }
+
+        p {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Primary Button (Resume) */
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e293b;
+            transform: translateY(-2px);
+        }
+
+        /* Outline Buttons (LinkedIn/Email) */
+        .btn-outline {
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: #f1f5f9;
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        footer {
+            position: absolute;
+            bottom: 2rem;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+    </style>
 </head>
 <body>
-  <div class="center">
-    <h1 class="message">Work in progress</h1>
-  </div>
+
+    <div class="container">
+        <span class="badge">Coming Soon</span>
+        <h1>Building something new.</h1>
+        <p>
+            My portfolio is currently under construction. I'm working on showcasing my latest projects and experiences. In the meantime, let's connect!
+        </p>
+
+        <div class="links">
+            <a href="https://linkedin.com/in/prashant_prasar" target="_blank" class="btn btn-outline">
+                LinkedIn
+            </a>
+            
+            <a href="mailto:contact@prashantprasar.com.np" class="btn btn-outline">
+                Email Me
+            </a>
+
+            <a href="resume.pdf" target="_blank" class="btn btn-primary">
+                View Resume
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 • Prashant Prasar
+    </footer>
 
 </body>
 </html>
