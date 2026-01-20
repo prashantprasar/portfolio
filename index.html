@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prashant Prasar</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --primary: #0f172a;
@@ -22,10 +23,9 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
-            overflow: hidden; /* Prevents scrollbars from mouse glow */
+            overflow: hidden;
         }
 
-        /* Mouse Glow Canvas */
         #canvas {
             position: fixed;
             top: 0;
@@ -35,83 +35,99 @@
         }
 
         .container {
-            padding: 2rem;
-            max-width: 600px;
+            padding: 2.5rem;
+            max-width: 650px;
             z-index: 1;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
         }
 
         .badge {
             background: #dbeafe;
             color: var(--accent);
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             margin: 1.5rem 0 0.5rem 0;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
+            background: linear-gradient(to bottom right, #0f172a, #334155);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Dynamic Text Color */
         .dynamic-text {
             color: var(--accent);
             display: inline-block;
             min-height: 1.2em;
+            font-weight: 700;
         }
 
         p {
             color: var(--secondary);
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             line-height: 1.6;
             margin-bottom: 2.5rem;
         }
 
         .links {
             display: flex;
-            gap: 15px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn {
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            backdrop-filter: blur(4px);
+            gap: 10px;
+        }
+
+        .btn i, .btn svg {
+            width: 18px;
+            height: 18px;
         }
 
         .btn-primary {
             background-color: var(--primary);
             color: white;
+            box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.2);
         }
 
         .btn-primary:hover {
-            background-color: #1e293b;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
+            background-color: var(--accent);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.3);
         }
 
         .btn-outline {
             border: 1px solid #e2e8f0;
-            background: rgba(255, 255, 255, 0.8);
+            background: white;
             color: var(--primary);
         }
 
         .btn-outline:hover {
-            background: white;
             border-color: var(--accent);
             color: var(--accent);
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            background: #f8fafc;
         }
 
         footer {
@@ -119,6 +135,7 @@
             bottom: 2rem;
             font-size: 0.9rem;
             color: var(--secondary);
+            font-weight: 500;
         }
     </style>
 </head>
@@ -127,17 +144,26 @@
     <canvas id="canvas"></canvas>
 
     <div class="container">
-        <span class="badge">In Progress</span>
+        <span class="badge">
+            <i data-lucide="loader-2" style="animation: spin 3s linear infinite;"></i>
+            Work in Progress
+        </span>
         <h1>Prashant Prasar.</h1>
         <p>
             I am a <span id="typewriter" class="dynamic-text"></span><br>
-            currently building my digital home.
+            currently crafting my digital space.
         </p>
 
         <div class="links">
-            <a href="https://linkedin.com/in/prashantprasar" target="_blank" class="btn btn-outline">LinkedIn</a>
-            <a href="mailto:prashantprasar02@gmail.com" class="btn btn-outline">Email Me</a>
-            <a href="./resume.pdf" target="_blank" class="btn btn-primary">View Resume</a>
+            <a href="https://linkedin.com/in/prashantprasar" target="_blank" class="btn btn-outline">
+                <i data-lucide="linkedin"></i> LinkedIn
+            </a>
+            <a href="mailto:prashantprasar02@gmail.com" class="btn btn-outline">
+                <i data-lucide="mail"></i> Email
+            </a>
+            <a href="./resume.html" target="_blank" class="btn btn-primary">
+                <i data-lucide="file-text"></i> View Resume
+            </a>
         </div>
     </div>
 
@@ -146,9 +172,12 @@
     </footer>
 
     <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
         // --- 1. TYPEWRITER EFFECT ---
         const textElement = document.getElementById('typewriter');
-        const phrases = ["Design Thinker.", "Problem Solver.", "Innovator.", "Aerospace Engineer."];
+        const phrases = ["Aerospace Engineer.", "Design Thinker.", "Problem Solver.", "Innovator."];
         let phraseIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
@@ -169,24 +198,68 @@
 
             if (!isDeleting && charIndex === currentPhrase.length) {
                 isDeleting = true;
-                typeSpeed = 2000; // Pause at end
+                typeSpeed = 2000;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 phraseIndex = (phraseIndex + 1) % phrases.length;
                 typeSpeed = 500;
             }
-
             setTimeout(type, typeSpeed);
         }
 
-        // --- 2. MOUSE MOVEMENT EFFECT ---
+        // --- 2. ADVANCED MOUSE & PARTICLE EFFECT ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
+        let particles = [];
         let mouse = { x: undefined, y: undefined };
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = 'rgba(37, 99, 235, 0.15)';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Border wrap
+                if (this.x > canvas.width) this.x = 0;
+                else if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                else if (this.y < 0) this.y = canvas.height;
+
+                // Mouse interaction
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 150) {
+                    this.x -= dx/20;
+                    this.y -= dy/20;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 80; i++) {
+                particles.push(new Particle());
+            }
+        }
 
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            initParticles();
         }
 
         window.addEventListener('mousemove', (e) => {
@@ -194,27 +267,35 @@
             mouse.y = e.y;
         });
 
-        function draw() {
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw Mouse Glow
             if (mouse.x !== undefined) {
-                // Creates a soft radial glow that follows the mouse
-                const gradient = ctx.createRadialGradient(
-                    mouse.x, mouse.y, 0, 
-                    mouse.x, mouse.y, 400
-                );
-                gradient.addColorStop(0, 'rgba(37, 99, 235, 0.08)');
+                const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 500);
+                gradient.addColorStop(0, 'rgba(37, 99, 235, 0.12)');
+                gradient.addColorStop(0.5, 'rgba(37, 99, 235, 0.04)');
                 gradient.addColorStop(1, 'rgba(248, 250, 252, 0)');
-                
                 ctx.fillStyle = gradient;
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
             }
-            requestAnimationFrame(draw);
+
+            // Update & Draw Particles
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
         }
 
         window.addEventListener('resize', resize);
         resize();
         type();
-        draw();
+        animate();
     </script>
+    <style>
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
 </body>
 </html>
