@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Under Construction</title>
+    <title>Prashant Prasar</title>
     <style>
         :root {
             --primary: #0f172a;
@@ -15,7 +15,6 @@
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
-            background: radial-gradient(circle at top right, #e2e8f0, var(--bg));
             color: var(--primary);
             margin: 0;
             display: flex;
@@ -23,11 +22,22 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
+            overflow: hidden; /* Prevents scrollbars from mouse glow */
+        }
+
+        /* Mouse Glow Canvas */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
             padding: 2rem;
             max-width: 600px;
+            z-index: 1;
         }
 
         .badge {
@@ -42,9 +52,16 @@
         }
 
         h1 {
-            font-size: 3rem;
-            margin: 1.5rem 0 1rem 0;
+            font-size: 3.5rem;
+            margin: 1.5rem 0 0.5rem 0;
             letter-spacing: -1px;
+        }
+
+        /* Dynamic Text Color */
+        .dynamic-text {
+            color: var(--accent);
+            display: inline-block;
+            min-height: 1.2em;
         }
 
         p {
@@ -66,13 +83,13 @@
             padding: 12px 24px;
             border-radius: 8px;
             font-weight: 500;
-            transition: all 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            backdrop-filter: blur(4px);
         }
 
-        /* Primary Button (Resume) */
         .btn-primary {
             background-color: var(--primary);
             color: white;
@@ -80,20 +97,21 @@
 
         .btn-primary:hover {
             background-color: #1e293b;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.1);
         }
 
-        /* Outline Buttons (LinkedIn/Email) */
         .btn-outline {
             border: 1px solid #e2e8f0;
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
             color: var(--primary);
         }
 
         .btn-outline:hover {
-            background: #f1f5f9;
+            background: white;
             border-color: var(--accent);
             color: var(--accent);
+            transform: translateY(-3px);
         }
 
         footer {
@@ -106,25 +124,20 @@
 </head>
 <body>
 
+    <canvas id="canvas"></canvas>
+
     <div class="container">
-        <span class="badge">Coming Soon</span>
+        <span class="badge">In Progress</span>
         <h1>Prashant Prasar.</h1>
         <p>
-            My portfolio is currently under construction. I'm working on showcasing my latest projects and experiences. In the meantime, let's connect!
+            I am a <span id="typewriter" class="dynamic-text"></span><br>
+            currently building my digital home.
         </p>
 
         <div class="links">
-            <a href="https://linkedin.com/in/prashantprasar" target="_blank" class="btn btn-outline">
-                LinkedIn
-            </a>
-            
-            <a href="mailto:prashantprasar02@gmail.com" class="btn btn-outline">
-                Email Me
-            </a>
-
-            <a href="resume.pdf" target="_blank" class="btn btn-primary">
-                View Resume
-            </a>
+            <a href="https://linkedin.com/in/prashantprasar" target="_blank" class="btn btn-outline">LinkedIn</a>
+            <a href="mailto:prashantprasar02@gmail.com" class="btn btn-outline">Email Me</a>
+            <a href="resume.pdf" target="_blank" class="btn btn-primary">View Resume</a>
         </div>
     </div>
 
@@ -132,5 +145,76 @@
         &copy; 2026 • Prashant Prasar
     </footer>
 
+    <script>
+        // --- 1. TYPEWRITER EFFECT ---
+        const textElement = document.getElementById('typewriter');
+        const phrases = ["Design Thinker.", "Problem Solver.", "Innovator.", "Aerospace Engineer."];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 150;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 150;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        // --- 2. MOUSE MOVEMENT EFFECT ---
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let mouse = { x: undefined, y: undefined };
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (mouse.x !== undefined) {
+                // Creates a soft radial glow that follows the mouse
+                const gradient = ctx.createRadialGradient(
+                    mouse.x, mouse.y, 0, 
+                    mouse.x, mouse.y, 400
+                );
+                gradient.addColorStop(0, 'rgba(37, 99, 235, 0.08)');
+                gradient.addColorStop(1, 'rgba(248, 250, 252, 0)');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        type();
+        draw();
+    </script>
 </body>
 </html>
