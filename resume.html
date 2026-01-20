@@ -3,183 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prashant Prasar | Aerospace Engineer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Resume | Prashant Prasar</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --primary: #0f172a; --secondary: #64748b; --accent: #2563eb; --bg: #f8fafc;
         }
+
         body {
-            font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
-            color: var(--primary); margin: 0; line-height: 1.6;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        .container { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
-        
-        header { text-align: center; margin-bottom: 50px; }
-        h1 { font-size: 3.5rem; margin: 0; letter-spacing: -2px; }
-        .contact-info { color: var(--secondary); margin-top: 15px; font-weight: 500; }
-        .cite { font-size: 0.7rem; color: var(--accent); vertical-align: super; margin-left: 2px; font-weight: bold; }
-        
-        section { margin-bottom: 50px; }
-        h2 { border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; font-size: 1.4rem; 
-             text-transform: uppercase; letter-spacing: 1px; color: var(--accent); }
-        
-        .item { margin-bottom: 30px; }
+
+        #canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
+
+        .resume-window {
+            margin: 4rem 1rem;
+            padding: 3.5rem;
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            z-index: 1;
+        }
+
+        header { text-align: center; margin-bottom: 3rem; }
+        h1 { font-size: 3rem; margin: 0; letter-spacing: -2px; }
+        .contact-bar { 
+            display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+            margin-top: 15px; color: var(--secondary); font-weight: 500;
+        }
+
+        section { margin-bottom: 3rem; }
+        h2 { 
+            display: flex; align-items: center; gap: 12px; font-size: 1.3rem; 
+            text-transform: uppercase; letter-spacing: 1px; color: var(--accent);
+            border-bottom: 2px solid rgba(37, 99, 235, 0.1); padding-bottom: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .item { margin-bottom: 2rem; }
         .item-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
         .item-title { font-weight: 700; font-size: 1.2rem; }
         .item-date { color: var(--secondary); font-size: 0.9rem; font-weight: 600; }
-        .item-sub { color: var(--accent); font-weight: 500; font-style: italic; margin-bottom: 8px; }
+        .item-sub { color: var(--accent); font-weight: 600; font-style: italic; margin: 4px 0 10px 0; }
         
-        ul { padding-left: 20px; margin-top: 8px; }
-        li { margin-bottom: 6px; }
+        ul { padding-left: 1.2rem; margin: 0; }
+        li { margin-bottom: 8px; font-size: 1rem; line-height: 1.6; color: #334155; }
 
-        .links { display: flex; gap: 15px; justify-content: center; margin: 30px 0; }
+        .links { display: flex; gap: 12px; justify-content: center; margin: 25px 0; }
         .btn { 
-            text-decoration: none; padding: 12px 24px; border-radius: 8px; 
-            font-weight: 600; transition: 0.3s; display: inline-flex; align-items: center; gap: 10px;
-            border: 1px solid #e2e8f0; background: white; color: var(--primary);
+            text-decoration: none; padding: 10px 20px; border-radius: 10px; 
+            font-weight: 600; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid #e2e8f0; background: white; color: var(--primary); font-size: 0.9rem;
         }
-        .btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        .btn-primary { background: var(--primary); color: white; border: none; }
+        .btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+
+        .back-link {
+            position: fixed; top: 20px; left: 20px; text-decoration: none;
+            color: var(--primary); background: white; padding: 10px 18px;
+            border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: 0.3s; z-index: 10;
+        }
+        .back-link:hover { transform: translateX(-5px); background: var(--accent); color: white; }
+
+        footer { text-align: center; margin-top: 4rem; padding-bottom: 2rem; color: var(--secondary); font-size: 0.9rem; }
+
+        @media (max-width: 600px) {
+            .resume-window { padding: 1.5rem; }
+            .item-header { flex-direction: column; }
+            h1 { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Prashant Prasar <span class="cite">[cite: 2]</span></h1>
-        <div class="contact-info">
-            Bangalore, India <span class="cite">[cite: 3]</span> • 
-            prashantprasar02@gmail.com <span class="cite">[cite: 3]</span> • 
-            +91 9035463931 <span class="cite">[cite: 3]</span>
-        </div>
-        <div class="links">
-            <a href="https://linkedin.com/in/prashantprasar" target="_blank" class="btn">
-                <i class="fa-brands fa-linkedin"></i> LinkedIn <span class="cite">[cite: 3]</span>
-            </a>
-            <a href="mailto:prashantprasar02@gmail.com" class="btn">
-                <i class="fa-solid fa-envelope"></i> Email
-            </a>
-            <a href="./resume.pdf" target="_blank" class="btn btn-primary">
-                <i class="fa-solid fa-file-pdf"></i> Resume <span class="cite">[cite: 1]</span>
-            </a>
-        </div>
-    </header>
+    <canvas id="canvas"></canvas>
 
-    <section>
-        <h2>Experience</h2>
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Intern - Structure Design</span>
-                <span class="item-date">Jul. 2025 – Present <span class="cite">[cite: 15]</span></span>
+    <a href="index.html" class="back-link">
+        <i data-lucide="arrow-left"></i> Back to Home
+    </a>
+
+    <div class="resume-window">
+        <header>
+            <h1>Prashant Prasar</h1>
+            <div class="contact-bar">
+                <span>Bangalore, India</span> • 
+                <span>prashantprasar02@gmail.com</span> • 
+                <span>+91 9035463931</span>
             </div>
-            <div class="item-sub">Airbus India, Bangalore <span class="cite">[cite: 13, 14]</span></div>
+            <div class="links">
+                <a href="https://linkedin.com/in/prashantprasar" target="_blank" class="btn">
+                    <i data-lucide="linkedin"></i> LinkedIn
+                </a>
+                <a href="mailto:prashantprasar02@gmail.com" class="btn">
+                    <i data-lucide="mail"></i> Email
+                </a>
+            </div>
+        </header>
+
+        <section>
+            <h2><i data-lucide="briefcase"></i> Professional Experience</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Intern - Structure Design</span>
+                    <span class="item-date">Jul. 2025 – Present</span>
+                </div>
+                <div class="item-sub">Airbus India, Bangalore</div>
+                <ul>
+                    <li>Performed Topology Optimization of Machined Brackets, reducing weight of Aluminium components by 1.3Kg (28%).</li>
+                    <li>Designed Sheetmetal & Composite Components aligned with manufacturing requirements.</li>
+                    <li>Developed DfM, engineering drawings, and Bill of Materials (BoM).</li>
+                </ul>
+            </div>
+            
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">CAD Designer</span>
+                    <span class="item-date">Dec. 2024 – Mar. 2025</span>
+                </div>
+                <div class="item-sub">STEM Karyashala Pvt. Ltd., Kathmandu</div>
+                <ul>
+                    <li>Designed STEM products optimized for 3D-printing and laser-cut manufacturing.</li>
+                    <li>Provided specialized consultancy for 3D printer troubleshooting and repair.</li>
+                </ul>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Engineering Intern</span>
+                    <span class="item-date">Sept. – Oct. 2024</span>
+                </div>
+                <div class="item-sub">Flight Laboratory, IIT Kanpur</div>
+                <ul>
+                    <li>Developed and tested a MATLAB App for the integration of X-Plane flight models with Simulink via UDP communication protocol.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2><i data-lucide="graduation-cap"></i> Education</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">BE in Aerospace Engineering (76.34%)</span>
+                    <span class="item-date">Mar. 2021 – Mar. 2025</span>
+                </div>
+                <div class="item-sub">Institute of Engineering, Pulchowk Campus, Tribhuvan University</div>
+                <ul>
+                    <li>Core Coursework: Aircraft Design, Compressible Aerodynamics, Computational Fluid Dynamics (CFD).</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2><i data-lucide="rocket"></i> Key Engineering Projects</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Piston Driven Supersonic Shock Tube</span>
+                    <span class="item-date">BE Final Year Project, 2024</span>
+                </div>
+                <ul>
+                    <li>Designed and constructed a supersonic shock tube using stainless steel, featuring a custom pressure measurement system for Mach number diagnostics.</li>
+                    <li>Engineered a custom pressure transducer reaching 100,000 samples/sec using the NI 6341 DAQ system.</li>
+                    <li>Applied Schlieren imaging techniques to visualize shock wave formation and flow characteristics.</li>
+                    <li><strong>Tools:</strong> LABVIEW, NI DAQ, Chronos 2.1 Highspeed Camera, MATLAB.</li>
+                </ul>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">Amphibian Passenger carrier Aircraft</span>
+                    <span class="item-date">Aircraft Preliminary Design</span>
+                </div>
+                <ul>
+                    <li>Designed an 18-seat, twin-propeller amphibious aircraft capable of land and water operations.</li>
+                    <li>Performed simulator-based testing in X-Plane to evaluate performance and handling using the Cooper-Harper Scale.</li>
+                    <li><strong>Tools:</strong> Xflr5, OpenVSP, Xplane, MATLAB.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2><i data-lucide="award"></i> Global Competitions</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">AIAA Design Build Fly (DBF) 2024</span>
+                    <span class="item-date">Team Leader & Design Lead</span>
+                </div>
+                <ul>
+                    <li>Achieved 22nd in Proposal and 38th in Design report ranking globally.</li>
+                    <li>Led a multidisciplinary team to design a remote-controlled aircraft for urban air mobility scenarios.</li>
+                    <li>Managed simulations, structural analysis, and subsystem testing phases.</li>
+                </ul>
+            </div>
+
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">TechFest Aeromodelling Competition 2023</span>
+                    <span class="item-date">IIT Bombay</span>
+                </div>
+                <ul>
+                    <li>Qualified in the top 30 teams globally out of over 100 entries.</li>
+                    <li>Optimized aircraft aerodynamics and flight performance for competition specifications.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2><i data-lucide="wrench"></i> Technical Skills</h2>
             <ul>
-                <li>Topology Optimization of Machined Brackets: Reduced weight of Aluminium components by 1.3Kg (28%) <span class="cite">[cite: 16]</span>.</li>
-                <li>Design of Sheetmetal & Composite Components with manufacturing requirements <span class="cite">[cite: 17]</span>.</li>
-                <li>DfM, Drawings, and BoM creation <span class="cite">[cite: 16]</span>.</li>
+                <li><strong>Design & Manufacturing:</strong> CATIAv5 (DfM, DfA, GD&T), Altair Inspire, 3D printing, Laser Cutting.</li>
+                <li><strong>Analysis & Simulation:</strong> ANSYS (Fluent, Static Structural), OPENFOAM, Xflr5, OpenVSP.</li>
+                <li><strong>Systems & Programming:</strong> MATLAB, LabVIEW, Xplane, Simulink, UDP communication.</li>
+                <li><strong>Documentation:</strong> LaTeX.</li>
             </ul>
-        </div>
+        </section>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">CAD Designer</span>
-                <span class="item-date">Dec. 2024 – Mar. 2025 <span class="cite">[cite: 25]</span></span>
-            </div>
-            <div class="item-sub">STEM Karyashala Pvt. Ltd., Kathmandu <span class="cite">[cite: 19, 24]</span></div>
-            <ul>
-                <li>Designed STEM products for 3D-printing and laser-cut manufacturing <span class="cite">[cite: 20]</span>.</li>
-                <li>Worked as a 3D printer troubleshooting and repair consultant <span class="cite">[cite: 21]</span>.</li>
-            </ul>
-        </div>
+        <footer>
+            &copy; 2026 • Prashant Prasar • Updated January 2026
+        </footer>
+    </div>
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Engineering Intern</span>
-                <span class="item-date">Sept. – Oct. 2024 <span class="cite">[cite: 27, 28]</span></span>
-            </div>
-            <div class="item-sub">Flight Laboratory, IIT Kanpur <span class="cite">[cite: 23, 26]</span></div>
-            <ul>
-                <li>Development and Testing of MATLAB App for integration of X-Plane flight model with Simulink using UDP communication protocol <span class="cite">[cite: 29]</span>.</li>
-            </ul>
-        </div>
-    </section>
+    <script>
+        lucide.createIcons();
 
-    <section>
-        <h2>Education</h2>
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">BE in Aerospace Engineering (76.34%) <span class="cite">[cite: 7, 8]</span></span>
-                <span class="item-date">Mar. 2021 – Mar. 2025 <span class="cite">[cite: 9]</span></span>
-            </div>
-            <div class="item-sub">Institute of Engineering, Pulchowk Campus, Tribhuvan University <span class="cite">[cite: 5, 6]</span></div>
-            <p><strong>Coursework:</strong> Aircraft Design, Compressible Aerodynamics, Computational Fluid Dynamics <span class="cite">[cite: 10]</span>.</p>
-        </div>
-    </section>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: undefined, y: undefined };
 
-    <section>
-        <h2>Projects</h2>
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Piston Driven Supersonic Shock Tube</span>
-                <span class="item-date">2024 <span class="cite">[cite: 41]</span></span>
-            </div>
-            <div class="item-sub">BE Final Year Project <span class="cite">[cite: 40]</span></div>
-            <ul>
-                <li>Designed and built a supersonic shock tube using stainless steel, incorporating a custom pressure measurement system <span class="cite">[cite: 42]</span>.</li>
-                <li>Developed and tested custom pressure transducer (100,000 samples/sec) using the NI 6341 DAQ system <span class="cite">[cite: 43]</span>.</li>
-                <li>Implemented Schlieren imaging technique to visualize shock wave formation <span class="cite">[cite: 44]</span>.</li>
-                <li><strong>Tools:</strong> LABVIEW, NI DAQ, Chronos 2.1 Highspeed Camera, MATLAB <span class="cite">[cite: 45]</span>.</li>
-            </ul>
-        </div>
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; else if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; else if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(37, 99, 235, 0.1)';
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
+            }
+        }
 
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">Amphibian Passenger Aircraft</span>
-                <span class="item-date">Design Project <span class="cite">[cite: 47]</span></span>
-            </div>
-            <div class="item-sub">Aircraft Preliminary Design</div>
-            <ul>
-                <li>Designed a twin-propeller, 18-seat amphibious aircraft for land and water operations <span class="cite">[cite: 48]</span>.</li>
-                <li>Conducted simulator-based testing in X-Plane, analyzing performance using the Cooper-Harper Scale <span class="cite">[cite: 50]</span>.</li>
-                <li><strong>Tools:</strong> Xflr5, OpenVSP, Xplane, MATLAB <span class="cite">[cite: 51]</span>.</li>
-            </ul>
-        </div>
-    </section>
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            for (let i = 0; i < 60; i++) particles.push(new Particle());
+        }
 
-    <section>
-        <h2>Competitions & Publications</h2>
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">AIAA Design Build Fly (DBF)</span>
-                <span class="item-date">2023 - 2024 <span class="cite">[cite: 56, 65]</span></span>
-            </div>
-            <div class="item-sub">Team Leader & Design Lead <span class="cite">[cite: 57]</span></div>
-            <ul>
-                <li>Ranked 22nd in Proposal and 38th in Design report ranking globally (2024) <span class="cite">[cite: 58]</span>.</li>
-                <li>Led multidisciplinary team in simulation, structural analysis, and landing gear design <span class="cite">[cite: 60, 67]</span>.</li>
-                <li>Developed detailed 3D CAD models using CATIAv5 <span class="cite">[cite: 68]</span>.</li>
-            </ul>
-        </div>
-        <div class="item">
-            <div class="item-header">
-                <span class="item-title">TechFest Aeromodelling Competition</span>
-                <span class="item-date">2023 <span class="cite">[cite: 61]</span></span>
-            </div>
-            <div class="item-sub">IIT Bombay <span class="cite">[cite: 62]</span></div>
-            <ul>
-                <li>Qualified in the top 30 teams out of over 100 entries <span class="cite">[cite: 64]</span>.</li>
-            </ul>
-        </div>
-    </section>
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        window.addEventListener('resize', resize);
 
-    <section>
-        <h2>Skills <span class="cite">[cite: 69]</span></h2>
-        <p>
-            <strong>Engineering Tools:</strong> MATLAB, LabVIEW, Xplane, CATIAv5 (DfM, DfA, GDnT), Altair Inspire, ANSYS (Fluent, Static Structural), OPENFOAM, Xflr5, OpenVSP, LaTeX <span class="cite">[cite: 71]</span>.
-        </p>
-    </section>
-</div>
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (mouse.x !== undefined) {
+                const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 500);
+                gradient.addColorStop(0, 'rgba(37, 99, 235, 0.08)');
+                gradient.addColorStop(1, 'rgba(248, 250, 252, 0)');
+                ctx.fillStyle = gradient; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
 
+        resize(); animate();
+    </script>
 </body>
 </html>
