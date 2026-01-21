@@ -1,267 +1,333 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume | Prashant Prasar</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <script src="https://unpkg.com/lucide@latest"></script>
-</head>
-<body class="resume-page">
+/* --- 1. GLOBAL VARIABLES & THEME --- */
+:root {
+    /* Light Mode Defaults */
+    --primary: #0f172a;
+    --secondary: #64748b;
+    --accent: #2563eb;
+    --bg: #f8fafc;
+    
+    /* Nav Specifics (Always Dark to match reference) */
+    --nav-bg: #0f172a;
+    --nav-text: #e2e8f0;
+    --nav-btn-bg: #ffffff;
+    --nav-btn-text: #0f172a;
 
-    <canvas id="canvas"></canvas>
+    /* Card/Container Specifics */
+    --card-bg: rgba(255, 255, 255, 0.4);
+    --card-border: rgba(255, 255, 255, 0.5);
+    
+    /* Standard Button Specifics */
+    --btn-outline-bg: white;
+    --btn-outline-border: #e2e8f0;
+    --btn-outline-hover: #f8fafc;
+    --text-main: #334155;
+}
 
-    <nav class="floating-nav">
-        <a href="./" class="nav-brand">
-            <i data-lucide="send"></i>
-            <span>Prashant Prasar</span>
-        </a>
-        <div class="nav-actions">
-            <a href="./" class="nav-link">Home</a>
-            <a href="./resume.html" class="nav-btn-pill">Resume</a>
-            <button id="themeBtn" class="nav-theme-toggle" aria-label="Toggle Dark Mode">
-                <i data-lucide="moon" id="themeIcon"></i>
-            </button>
-        </div>
-    </nav>
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+    --primary: #f1f5f9;
+    --secondary: #94a3b8;
+    --accent: #60a5fa;
+    --bg: #020617;
+    
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --card-border: rgba(255, 255, 255, 0.1);
+    
+    --btn-outline-bg: #0f172a;
+    --btn-outline-border: #334155;
+    --btn-outline-hover: #1e293b;
+    --text-main: #cbd5e1;
+}
 
-    <div class="resume-window">
-        <header>
-            <h1>Prashant Prasar</h1>
-            <div class="contact-bar">
-                <span>Bangalore, India</span> • 
-                <span>prashantprasar02@gmail.com</span> • 
-                <span>+91 9035463931</span>
-            </div>
-            <div class="links">
-                <a href="https://linkedin.com/in/prashantprasar" target="_blank" class="btn btn-outline">
-                    <i data-lucide="linkedin"></i> LinkedIn
-                </a>
-                <a href="mailto:prashantprasar02@gmail.com" class="btn btn-outline">
-                    <i data-lucide="mail"></i> Email
-                </a>
-                <a href="./resume.pdf" class="btn btn-primary">
-                    <i data-lucide="file-down"></i> Download Resume
-                </a>
-            </div>
-        </header>
+/* --- 2. GLOBAL RESET & BASE STYLES --- */
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--primary);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
 
-        <section>
-            <h2><i data-lucide="briefcase"></i> Professional Experience</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Intern - Structure Design</span>
-                    <span class="item-date">Jul. 2025 – Present</span>
-                </div>
-                <div class="item-sub">Airbus India, Bangalore</div>
-                <ul>
-                    <li>Performed Topology Optimization of Machined Brackets, reducing weight of Aluminium components by 1.3Kg (28%).</li>
-                    <li>Designed Sheetmetal & Composite Components aligned with manufacturing requirements.</li>
-                    <li>Developed DfM, engineering drawings, and Bill of Materials (BoM).</li>
-                </ul>
-            </div>
-            
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">CAD Designer</span>
-                    <span class="item-date">Dec. 2024 – Mar. 2025</span>
-                </div>
-                <div class="item-sub">STEM Karyashala Pvt. Ltd., Kathmandu</div>
-                <ul>
-                    <li>Designed STEM products optimized for 3D-printing and laser-cut manufacturing.</li>
-                    <li>Provided specialized consultancy for 3D printer troubleshooting and repair.</li>
-                </ul>
-            </div>
+body.home-page {
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
 
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Engineering Intern</span>
-                    <span class="item-date">Sept. – Oct. 2024</span>
-                </div>
-                <div class="item-sub">Flight Laboratory, IIT Kanpur</div>
-                <ul>
-                    <li>Developed and tested a MATLAB App for the integration of X-Plane flight models with Simulink via UDP communication protocol.</li>
-                </ul>
-            </div>
-        </section>
+body.resume-page {
+    overflow-x: hidden;
+    padding-top: 80px; /* Space for the header */
+}
 
-        <section>
-            <h2><i data-lucide="graduation-cap"></i> Education</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">BE in Aerospace Engineering (76.34%)</span>
-                    <span class="item-date">Mar. 2021 – Mar. 2025</span>
-                </div>
-                <div class="item-sub">Institute of Engineering, Pulchowk Campus, Tribhuvan University</div>
-                <ul>
-                    <li>Core Coursework: Aircraft Design, Compressible Aerodynamics, Computational Fluid Dynamics (CFD).</li>
-                </ul>
-            </div>
-        </section>
+#canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
 
-        <section>
-            <h2><i data-lucide="rocket"></i> Key Engineering Projects</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Piston Driven Supersonic Shock Tube</span>
-                    <span class="item-date">BE Final Year Project, 2024</span>
-                </div>
-                <ul>
-                    <li>Designed and constructed a supersonic shock tube using stainless steel, featuring a custom pressure measurement system for Mach number diagnostics.</li>
-                    <li>Engineered a custom pressure transducer reaching 100,000 samples/sec using the NI 6341 DAQ system.</li>
-                    <li>Applied Schlieren imaging techniques to visualize shock wave formation and flow characteristics.</li>
-                    <li><strong>Tools:</strong> LABVIEW, NI DAQ, Chronos 2.1 Highspeed Camera, MATLAB.</li>
-                </ul>
-            </div>
+/* --- 3. FLOATING NAVIGATION BAR (NEW) --- */
+.floating-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    background: var(--nav-bg); /* Always dark navy/black */
+    color: var(--nav-text);
+    padding: 0.7rem 1.2rem;
+    border-radius: 24px; /* Pill shape */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">Amphibian Passenger carrier Aircraft</span>
-                    <span class="item-date">Aircraft Preliminary Design</span>
-                </div>
-                <ul>
-                    <li>Designed an 18-seat, twin-propeller amphibious aircraft capable of land and water operations.</li>
-                    <li>Performed simulator-based testing in X-Plane to evaluate performance and handling using the Cooper-Harper Scale.</li>
-                    <li><strong>Tools:</strong> Xflr5, OpenVSP, Xplane, MATLAB.</li>
-                </ul>
-            </div>
-        </section>
+/* Left Side: Brand */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+}
 
-        <section>
-            <h2><i data-lucide="award"></i> Global Competitions</h2>
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">AIAA Design Build Fly (DBF) 2024</span>
-                    <span class="item-date">Team Leader & Design Lead</span>
-                </div>
-                <ul>
-                    <li>Achieved 22nd in Proposal and 38th in Design report ranking globally.</li>
-                    <li>Led a multidisciplinary team to design a remote-controlled aircraft for urban air mobility scenarios.</li>
-                    <li>Managed simulations, structural analysis, and subsystem testing phases.</li>
-                </ul>
-            </div>
+/* Right Side: Actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 
-            <div class="item">
-                <div class="item-header">
-                    <span class="item-title">TechFest Aeromodelling Competition 2023</span>
-                    <span class="item-date">IIT Bombay</span>
-                </div>
-                <ul>
-                    <li>Qualified in the top 30 teams globally out of over 100 entries.</li>
-                    <li>Optimized aircraft aerodynamics and flight performance for competition specifications.</li>
-                </ul>
-            </div>
-        </section>
+/* Nav Links */
+.nav-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
 
-        <section>
-            <h2><i data-lucide="wrench"></i> Technical Skills</h2>
-            <ul>
-                <li><strong>Design & Manufacturing:</strong> CATIAv5 (DfM, DfA, GD&T), Altair Inspire, 3D printing, Laser Cutting.</li>
-                <li><strong>Analysis & Simulation:</strong> ANSYS (Fluent, Static Structural), OPENFOAM, Xflr5, OpenVSP.</li>
-                <li><strong>Systems & Programming:</strong> MATLAB, LabVIEW, Xplane, Simulink, UDP communication.</li>
-                <li><strong>Documentation:</strong> LaTeX.</li>
-            </ul>
-        </section>
+.nav-link:hover {
+    color: white;
+}
 
-        <footer>
-            Updated January 2026 <br>
-            &copy; 2026 • Prashant Prasar 
-        </footer>
-    </div>
+/* The "Resume" Button (White Pill) */
+.nav-btn-pill {
+    background-color: var(--nav-btn-bg);
+    color: var(--nav-btn-text);
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
 
-    <script>
-        lucide.createIcons();
+.nav-btn-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
 
-        // --- THEME LOGIC ---
-        const themeBtn = document.getElementById('themeBtn');
-        const themeIcon = document.getElementById('themeIcon');
-        const html = document.documentElement;
+/* Theme Toggle Inside Nav */
+.nav-theme-toggle {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #94a3b8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
 
-        let isDark = localStorage.getItem('theme') === 'dark' || 
-                    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+.nav-theme-toggle:hover {
+    color: white;
+    border-color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
 
-        function updateThemeUI() {
-            if (isDark) {
-                html.setAttribute('data-theme', 'dark');
-                themeIcon.setAttribute('data-lucide', 'sun');
-            } else {
-                html.removeAttribute('data-theme');
-                themeIcon.setAttribute('data-lucide', 'moon');
-            }
-            lucide.createIcons();
-            updateCanvasColors(); 
-        }
+.nav-theme-toggle i {
+    width: 18px;
+    height: 18px;
+}
 
-        themeBtn.addEventListener('click', () => {
-            isDark = !isDark;
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateThemeUI();
-        });
 
-        updateThemeUI();
+/* --- 4. HOME PAGE CONTENT --- */
+.container {
+    padding: 2.5rem;
+    max-width: 650px;
+    width: 90%;
+    z-index: 1;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+    transition: background 0.4s ease, border 0.4s ease;
+    margin-top: 60px; /* Offset for header */
+}
 
-        // --- PARTICLES ---
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: undefined, y: undefined };
-        
-        let particleColor, glowColor;
+.badge {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(37, 99, 235, 0.2);
+}
 
-        function updateCanvasColors() {
-            if (isDark) {
-                particleColor = 'rgba(96, 165, 250, 0.15)'; 
-                glowColor = 'rgba(96, 165, 250, 0.05)';
-            } else {
-                particleColor = 'rgba(37, 99, 235, 0.1)';
-                glowColor = 'rgba(37, 99, 235, 0.08)';
-            }
-        }
+.container h1 {
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    margin: 1.5rem 0 0.5rem 0;
+    letter-spacing: -2px;
+    background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * 0.4 - 0.2;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0; else if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0; else if (this.y < 0) this.y = canvas.height;
-            }
-            draw() {
-                ctx.fillStyle = particleColor;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
+.dynamic-text {
+    color: var(--accent);
+    display: inline-block;
+    min-height: 1.2em;
+    font-weight: 700;
+}
 
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            particles = [];
-            for (let i = 0; i < 60; i++) particles.push(new Particle());
-        }
+.container p {
+    color: var(--secondary);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
 
-        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
-        window.addEventListener('resize', resize);
+/* Home Page specific buttons */
+.links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (mouse.x !== undefined) {
-                const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 500);
-                gradient.addColorStop(0, glowColor);
-                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                ctx.fillStyle = gradient; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
+.btn {
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
 
-        resize(); animate();
-    </script>
-</body>
-</html>
+.btn i, .btn svg { width: 18px; height: 18px; }
+
+.btn-primary {
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    border: none;
+}
+.btn-primary:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-outline {
+    border: 1px solid var(--btn-outline-border);
+    background: var(--btn-outline-bg);
+    color: var(--primary);
+}
+.btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-5px);
+    background: var(--btn-outline-hover);
+}
+
+/* --- 5. RESUME PAGE CONTENT --- */
+.resume-window {
+    margin: 1rem 1rem 4rem 1rem; /* Top margin reduced because body has padding */
+    padding: 3.5rem;
+    max-width: 900px;
+    width: 100%;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    z-index: 1;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.resume-window header { text-align: center; margin-bottom: 3rem; }
+.resume-window h1 { font-size: 3rem; margin: 0; letter-spacing: -2px; }
+
+.contact-bar { 
+    display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+    margin-top: 15px; color: var(--secondary); font-weight: 500;
+}
+
+section { margin-bottom: 3rem; }
+
+h2 { 
+    display: flex; align-items: center; gap: 12px; font-size: 1.3rem; 
+    text-transform: uppercase; letter-spacing: 1px; color: var(--accent);
+    border-bottom: 2px solid rgba(37, 99, 235, 0.1); padding-bottom: 8px; margin-bottom: 1.5rem;
+}
+
+.item { margin-bottom: 2rem; }
+.item-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
+.item-title { font-weight: 700; font-size: 1.2rem; }
+.item-date { color: var(--secondary); font-size: 0.9rem; font-weight: 600; }
+.item-sub { color: var(--accent); font-weight: 600; font-style: italic; margin: 4px 0 10px 0; }
+ul { padding-left: 1.2rem; margin: 0; }
+li { margin-bottom: 8px; font-size: 1rem; line-height: 1.6; color: var(--text-main); }
+
+/* Footer */
+footer {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 500;
+}
+.resume-window footer {
+    align-text: center;
+    position: relative;
+    bottom: auto;
+    margin-top: 4rem;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 600px) {
+    .floating-nav { padding: 0.6rem 1rem; width: 85%; }
+    .nav-brand span { font-size: 1rem; }
+    .nav-link { display: none; } /* Hide 'Home' text on very small screens if needed */
+    .nav-btn-pill { padding: 6px 14px; font-size: 0.8rem; }
+    
+    .resume-window { padding: 1.5rem; }
+    .item-header { flex-direction: column; }
+    .resume-window h1 { font-size: 2rem; }
+}
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
