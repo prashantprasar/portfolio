@@ -32,7 +32,7 @@
         </span>
         <h1>Prashant Prasar.</h1>
         <p>
-            I am an <span id="typewriter" class="dynamic-text"></span><br>
+           Aerospace Engineer<br>
             currently crafting my digital space.
         </p>
 
@@ -83,112 +83,6 @@
         });
 
         updateThemeUI();
-
-        // --- TYPEWRITER ---
-        const textElement = document.getElementById('typewriter');
-        const phrases = ["Aerospace Engineer.", "Innovator."];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typeSpeed = 150;
-
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-            if (isDeleting) {
-                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-                typeSpeed = 50;
-            } else {
-                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-                typeSpeed = 150;
-            }
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500;
-            }
-            setTimeout(type, typeSpeed);
-        }
-
-        // --- PARTICLES ---
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: undefined, y: undefined };
-        let particleColor, glowStart, glowEnd;
-
-        function updateCanvasColors() {
-            if (isDark) {
-                particleColor = 'rgba(96, 165, 250, 0.2)'; 
-                glowStart = 'rgba(96, 165, 250, 0.15)';
-                glowEnd = 'rgba(96, 165, 250, 0.05)';
-            } else {
-                particleColor = 'rgba(37, 99, 235, 0.15)';
-                glowStart = 'rgba(37, 99, 235, 0.12)';
-                glowEnd = 'rgba(37, 99, 235, 0.04)';
-            }
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width) this.x = 0; else if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0; else if (this.y < 0) this.y = canvas.height;
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 150) {
-                    this.x -= dx/20;
-                    this.y -= dy/20;
-                }
-            }
-            draw() {
-                ctx.fillStyle = particleColor;
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < 80; i++) particles.push(new Particle());
-        }
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
-        }
-
-        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (mouse.x !== undefined) {
-                const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 500);
-                gradient.addColorStop(0, glowStart);
-                gradient.addColorStop(0.5, glowEnd);
-                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                ctx.fillStyle = gradient; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', resize);
-        resize();
-        type();
-        animate();
     </script>
 </body>
 </html>
