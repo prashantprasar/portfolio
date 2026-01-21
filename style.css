@@ -1,23 +1,333 @@
+/* --- 1. GLOBAL VARIABLES & THEME --- */
+:root {
+    /* Light Mode Defaults */
+    --primary: #0f172a;
+    --secondary: #64748b;
+    --accent: #2563eb;
+    --bg: #f8fafc;
+    
+    /* Nav Specifics (Always Dark to match reference) */
+    --nav-bg: #0f172a;
+    --nav-text: #e2e8f0;
+    --nav-btn-bg: #ffffff;
+    --nav-btn-text: #0f172a;
+
+    /* Card/Container Specifics */
+    --card-bg: rgba(255, 255, 255, 0.4);
+    --card-border: rgba(255, 255, 255, 0.5);
+    
+    /* Standard Button Specifics */
+    --btn-outline-bg: white;
+    --btn-outline-border: #e2e8f0;
+    --btn-outline-hover: #f8fafc;
+    --text-main: #334155;
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] {
+    --primary: #f1f5f9;
+    --secondary: #94a3b8;
+    --accent: #60a5fa;
+    --bg: #020617;
+    
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --card-border: rgba(255, 255, 255, 0.1);
+    
+    --btn-outline-bg: #0f172a;
+    --btn-outline-border: #334155;
+    --btn-outline-hover: #1e293b;
+    --text-main: #cbd5e1;
+}
+
+/* --- 2. GLOBAL RESET & BASE STYLES --- */
 body {
-  margin: 0;
-  padding: 0;
-  background: #f0f0f0;
-  font-family: 'Segoe UI', sans-serif;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg);
+    color: var(--primary);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-.center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
+body.home-page {
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
 }
 
-.message {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #444;
+body.resume-page {
+    overflow-x: hidden;
+    padding-top: 80px; /* Space for the header */
 }
+
+#canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- 3. FLOATING NAVIGATION BAR (NEW) --- */
+.floating-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    background: var(--nav-bg); /* Always dark navy/black */
+    color: var(--nav-text);
+    padding: 0.7rem 1.2rem;
+    border-radius: 24px; /* Pill shape */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Left Side: Brand */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+}
+
+/* Right Side: Actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Nav Links */
+.nav-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: white;
+}
+
+/* The "Resume" Button (White Pill) */
+.nav-btn-pill {
+    background-color: var(--nav-btn-bg);
+    color: var(--nav-btn-text);
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.nav-btn-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Theme Toggle Inside Nav */
+.nav-theme-toggle {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #94a3b8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.nav-theme-toggle:hover {
+    color: white;
+    border-color: white;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-theme-toggle i {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* --- 4. HOME PAGE CONTENT --- */
+.container {
+    padding: 2.5rem;
+    max-width: 650px;
+    width: 90%;
+    z-index: 1;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+    transition: background 0.4s ease, border 0.4s ease;
+    margin-top: 60px; /* Offset for header */
+}
+
+.badge {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.container h1 {
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    margin: 1.5rem 0 0.5rem 0;
+    letter-spacing: -2px;
+    background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.dynamic-text {
+    color: var(--accent);
+    display: inline-block;
+    min-height: 1.2em;
+    font-weight: 700;
+}
+
+.container p {
+    color: var(--secondary);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+/* Home Page specific buttons */
+.links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.btn {
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.btn i, .btn svg { width: 18px; height: 18px; }
+
+.btn-primary {
+    background-color: var(--accent);
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+    border: none;
+}
+.btn-primary:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-outline {
+    border: 1px solid var(--btn-outline-border);
+    background: var(--btn-outline-bg);
+    color: var(--primary);
+}
+.btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-5px);
+    background: var(--btn-outline-hover);
+}
+
+/* --- 5. RESUME PAGE CONTENT --- */
+.resume-window {
+    margin: 1rem 1rem 4rem 1rem; /* Top margin reduced because body has padding */
+    padding: 3.5rem;
+    max-width: 900px;
+    width: 100%;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+    z-index: 1;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.resume-window header { text-align: center; margin-bottom: 3rem; }
+.resume-window h1 { font-size: 3rem; margin: 0; letter-spacing: -2px; }
+
+.contact-bar { 
+    display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+    margin-top: 15px; color: var(--secondary); font-weight: 500;
+}
+
+section { margin-bottom: 3rem; }
+
+h2 { 
+    display: flex; align-items: center; gap: 12px; font-size: 1.3rem; 
+    text-transform: uppercase; letter-spacing: 1px; color: var(--accent);
+    border-bottom: 2px solid rgba(37, 99, 235, 0.1); padding-bottom: 8px; margin-bottom: 1.5rem;
+}
+
+.item { margin-bottom: 2rem; }
+.item-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; }
+.item-title { font-weight: 700; font-size: 1.2rem; }
+.item-date { color: var(--secondary); font-size: 0.9rem; font-weight: 600; }
+.item-sub { color: var(--accent); font-weight: 600; font-style: italic; margin: 4px 0 10px 0; }
+ul { padding-left: 1.2rem; margin: 0; }
+li { margin-bottom: 8px; font-size: 1rem; line-height: 1.6; color: var(--text-main); }
+
+/* Footer */
+footer {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 500;
+}
+.resume-window footer {
+    align-text: center;
+    position: relative;
+    bottom: auto;
+    margin-top: 4rem;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 600px) {
+    .floating-nav { padding: 0.6rem 1rem; width: 85%; }
+    .nav-brand span { font-size: 1rem; }
+    .nav-link { display: none; } /* Hide 'Home' text on very small screens if needed */
+    .nav-btn-pill { padding: 6px 14px; font-size: 0.8rem; }
+    
+    .resume-window { padding: 1.5rem; }
+    .item-header { flex-direction: column; }
+    .resume-window h1 { font-size: 2rem; }
+}
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
