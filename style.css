@@ -11,6 +11,8 @@
     --nav-text: #e2e8f0;
     --nav-btn-bg: #ffffff;
     --nav-btn-text: #0f172a;
+    
+
 
     /* Card/Container Specifics */
     --card-bg: rgba(255, 255, 255, 0.4);
@@ -89,7 +91,9 @@ body.resume-page {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
-
+.nav-theme-toggle svg {
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
 /* Left Side: Brand */
 .nav-brand {
     display: flex;
@@ -138,19 +142,33 @@ body.resume-page {
     box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
+
 /* Theme Toggle Inside Nav */
+.nav-theme-toggle svg {
+    width: 24px;
+    height: 24px;
+}
+
 .nav-theme-toggle {
+    width: 40px;
+    height: 40px;
+
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #94a3b8;
     cursor: pointer;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 6px;
+
+    padding: 0;             
     border-radius: 50%;
+    line-height: 1;          
+
     transition: all 0.3s;
 }
+
 
 .nav-theme-toggle:hover {
     color: white;

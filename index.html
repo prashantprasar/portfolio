@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prashant Prasar</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <script src="https://unpkg.com/lucide@latest">
+        (function () {
+            const theme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (theme === 'dark' || (!theme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+
 </head>
 <body class="home-page">
 
@@ -19,9 +29,10 @@
         <div class="nav-actions">
             <a href="./" class="nav-link">Home</a>
             <a href="./resume.html" class="nav-btn-pill">Resume</a>
-            <button id="themeBtn" class="nav-theme-toggle" aria-label="Toggle Dark Mode">
-                <i data-lucide="moon" id="themeIcon"></i>
+           <button id="themeBtn" class="nav-theme-toggle" aria-label="Toggle Dark Mode">
+                <span id="themeIcon"></span>
             </button>
+
         </div>
     </nav>
 
@@ -54,26 +65,25 @@
     </footer>
 
     <script>
-        lucide.createIcons();
-
-        // --- THEME LOGIC ---
         const themeBtn = document.getElementById('themeBtn');
         const themeIcon = document.getElementById('themeIcon');
         const html = document.documentElement;
 
-        let isDark = localStorage.getItem('theme') === 'dark' || 
-                    (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        let isDark =
+            localStorage.getItem('theme') === 'dark' ||
+            (!localStorage.getItem('theme') &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches);
 
         function updateThemeUI() {
             if (isDark) {
                 html.setAttribute('data-theme', 'dark');
-                themeIcon.setAttribute('data-lucide', 'sun');
+                themeIcon.innerHTML = '<i data-lucide="sun"></i>';
             } else {
                 html.removeAttribute('data-theme');
-                themeIcon.setAttribute('data-lucide', 'moon');
+                themeIcon.innerHTML = '<i data-lucide="moon"></i>';
             }
-            lucide.createIcons();
-            updateCanvasColors(); 
+
+            lucide.createIcons(); // re-render icons
         }
 
         themeBtn.addEventListener('click', () => {
@@ -84,5 +94,6 @@
 
         updateThemeUI();
     </script>
+
 </body>
 </html>
