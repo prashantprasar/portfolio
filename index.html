@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prashant Prasar</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <script src="https://unpkg.com/lucide@latest">
+    <script>
         (function () {
-        const theme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        if (theme === 'dark' || (!theme && prefersDark)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
         })();
     </script>
+    <link rel="preconnect" href="https://unpkg.com">
     <link rel="stylesheet" href="style.css">
+    <script defer src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="theme.js"></script>
 </head>
 <body class="home-page">
 
@@ -63,36 +66,6 @@
         &copy; 2026 • Prashant Prasar
     </footer>
 
-    <script>
-        const themeBtn = document.getElementById('themeBtn');
-        const themeIcon = document.getElementById('themeIcon');
-        const html = document.documentElement;
-
-        let isDark =
-            localStorage.getItem('theme') === 'dark' ||
-            (!localStorage.getItem('theme') &&
-            window.matchMedia('(prefers-color-scheme: dark)').matches);
-
-        function updateThemeUI() {
-            if (isDark) {
-                html.setAttribute('data-theme', 'dark');
-                themeIcon.innerHTML = '<i data-lucide="sun"></i>';
-            } else {
-                html.removeAttribute('data-theme');
-                themeIcon.innerHTML = '<i data-lucide="moon"></i>';
-            }
-
-            lucide.createIcons(); // re-render icons
-        }
-
-        themeBtn.addEventListener('click', () => {
-            isDark = !isDark;
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateThemeUI();
-        });
-
-        updateThemeUI();
-    </script>
 
 </body>
 </html>
